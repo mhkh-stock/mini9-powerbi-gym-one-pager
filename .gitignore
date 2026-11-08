@@ -1,0 +1,4 @@
+# Rebuildable artefacts — never uploaded to GitHub
+data/gym.db
+__pycache__/
+*.pyc

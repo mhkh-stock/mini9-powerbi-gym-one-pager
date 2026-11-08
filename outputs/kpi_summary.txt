@@ -1,0 +1,9 @@
+members: 60
+active members: 50
+cancelled members: 10
+check-ins: 2387
+payments: 255
+paid revenue Jan-Jun 2026: PKR 1,562,000
+MRR (active members x plan fee): PKR 307,000
+churn rate: 16.7%
+peak check-in hour: 18:00 (302 check-ins)

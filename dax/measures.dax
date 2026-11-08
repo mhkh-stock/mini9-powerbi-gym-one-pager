@@ -1,0 +1,49 @@
+// Mini #9 — DAX measures for the IronWorks Gym one-pager
+// Paste into Power BI: Modeling -> New measure, one block at a time.
+// Every measure has a Python-computed twin in src/checks.py — the two
+// must agree, or the model (not the measure) is wrong.
+
+// ---- Revenue ----
+Total Revenue =
+CALCULATE (
+    SUM ( fact_payments[amount_pkr] ),
+    fact_payments[status] = "paid"
+)
+
+// Monthly recurring revenue: what the active base pays every month.
+MRR =
+SUMX (
+    FILTER ( dim_member, dim_member[status] = "active" ),
+    RELATED ( dim_plan[monthly_fee_pkr] )
+)
+
+// ---- Membership ----
+Active Members =
+COUNTROWS ( FILTER ( dim_member, dim_member[status] = "active" ) )
+
+Churn Rate =
+DIVIDE (
+    COUNTROWS ( FILTER ( dim_member, dim_member[status] = "cancelled" ) ),
+    COUNTROWS ( dim_member )
+)
+
+// ---- Usage ----
+Total Check-ins = COUNTROWS ( fact_checkins )
+
+Avg Check-ins per Active Member =
+DIVIDE ( [Total Check-ins], [Active Members] )
+
+// Jan–Jun 2026 is 26 weeks; per-week rate is the comparable number.
+Avg Check-ins per Member per Week =
+DIVIDE ( [Total Check-ins], [Active Members] * 26 )
+
+// ---- Payments health ----
+Failed Payments =
+COUNTROWS ( FILTER ( fact_payments, fact_payments[status] = "failed" ) )
+
+Failed Payment Rate =
+DIVIDE ( [Failed Payments], COUNTROWS ( fact_payments ) )
+
+// ---- Plan mix (use in the bar visual; the measure is the share) ----
+Revenue Share by Plan =
+DIVIDE ( [Total Revenue], CALCULATE ( [Total Revenue], ALL ( dim_plan ) ) )

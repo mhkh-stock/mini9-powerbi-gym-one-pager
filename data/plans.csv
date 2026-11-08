@@ -1,0 +1,5 @@
+plan_id,plan_name,monthly_fee_pkr,includes
+P1,Basic,3000,"Gym floor access, off-peak hours"
+P2,Standard,5000,Full access + 2 group classes / week
+P3,Premium,8000,Full access + unlimited classes + sauna
+P4,Family,12000,"2 adults + 2 children, full access"

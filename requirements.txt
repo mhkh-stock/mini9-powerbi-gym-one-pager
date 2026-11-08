@@ -1,0 +1,2 @@
+# Mini #9 — pinned, verified with Python 3.12
+matplotlib==3.6.3
